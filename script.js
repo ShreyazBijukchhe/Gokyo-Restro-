@@ -1,11 +1,11 @@
 
       /* ─── STATE ─── */
-      let currentUser = null;
+      let currentUser = JSON.parse(localStorage.getItem('gokyoCurrentUser')) || null;
       let selectedTable = null;
       let selectedBevs = new Set();
       let cart = [];
       let deliveryMode = "dine-in";
-      let afterLoginPage = null;
+      let afterLoginPage = localStorage.getItem('gokyoAfterLoginPage') || null;
 
       const menuItems = [
         {
@@ -136,14 +136,44 @@
       function requireAuth(target) {
         if (!currentUser) {
           afterLoginPage = target;
+          localStorage.setItem('gokyoAfterLoginPage', afterLoginPage);
           showToast("Please sign in to continue", "🔐");
-          showPage("login");
+          window.location.href = 'login.html';
         } else {
-          showPage(target);
+          window.location.href = target;
         }
       }
 
       /* ─── AUTH ─── */
+      function saveCurrentUser() {
+        if (currentUser) {
+          localStorage.setItem('gokyoCurrentUser', JSON.stringify(currentUser));
+        }
+      }
+
+      function clearCurrentUser() {
+        localStorage.removeItem('gokyoCurrentUser');
+      }
+
+      function clearAfterLoginPage() {
+        localStorage.removeItem('gokyoAfterLoginPage');
+      }
+
+      function restoreUser() {
+        if (currentUser) {
+          const initials =
+            currentUser.initials ||
+            (currentUser.name || '')
+              .split(' ')
+              .map((w) => w[0] || '')
+              .join('')
+              .slice(0, 2)
+              .toUpperCase();
+          currentUser.initials = initials;
+          setNavUser(initials);
+        }
+      }
+
       function doLogin() {
         const email = document.getElementById("login-email").value;
         const pass = document.getElementById("login-password").value;
@@ -153,26 +183,36 @@
         }
         // Admin shortcut
         if (email === "admin@gokyo.com") {
-          currentUser = { name: "Admin", email, role: "admin" };
+          currentUser = { name: "Admin", email, role: "admin", initials: "A" };
+          saveCurrentUser();
           setNavUser("A");
           showToast("Welcome, Admin!", "👋");
-          showPage("admin");
+          window.location.href = 'admin.html';
           return;
         }
-        currentUser = { name: email.split("@")[0], email, role: "member" };
-        const initials = currentUser.name.slice(0, 2).toUpperCase();
-        setNavUser(initials);
+        const username = email.split("@")[0] || 'Member';
+        currentUser = {
+          name: username,
+          email,
+          role: "member",
+          initials: username.slice(0, 2).toUpperCase(),
+        };
+        saveCurrentUser();
+        setNavUser(currentUser.initials);
         showToast("Welcome back, " + currentUser.name + "!", "✅");
-        showPage(afterLoginPage || "home");
-        afterLoginPage = null;
+        const target = afterLoginPage || localStorage.getItem('gokyoAfterLoginPage') || 'home.html';
+        clearAfterLoginPage();
+        window.location.href = target;
       }
 
       function doGuestLogin() {
-        currentUser = { name: "Guest", email: "guest", role: "visitor" };
+        currentUser = { name: "Guest", email: "guest", role: "visitor", initials: "G" };
+        saveCurrentUser();
         setNavUser("G");
         showToast("Browsing as Guest", "ℹ️");
-        showPage(afterLoginPage || "home");
-        afterLoginPage = null;
+        const target = afterLoginPage || localStorage.getItem('gokyoAfterLoginPage') || 'home.html';
+        clearAfterLoginPage();
+        window.location.href = target;
       }
 
       function doRegister() {
@@ -182,36 +222,44 @@
           showToast("Please fill all fields", "⚠️");
           return;
         }
-        currentUser = {
-          name,
-          email,
-          role: document.getElementById("reg-type").value,
-        };
         const initials = name
           .split(" ")
           .map((w) => w[0])
           .join("")
           .toUpperCase()
           .slice(0, 2);
+        currentUser = {
+          name,
+          email,
+          role: document.getElementById("reg-type").value,
+          initials,
+        };
+        saveCurrentUser();
         setNavUser(initials);
         showToast("Account created! Welcome, " + name + "!", "🎉");
-        showPage(afterLoginPage || "home");
-        afterLoginPage = null;
+        const target = afterLoginPage || localStorage.getItem('gokyoAfterLoginPage') || 'home.html';
+        clearAfterLoginPage();
+        window.location.href = target;
       }
 
       function setNavUser(initials) {
-        document.getElementById("nav-auth-btns").style.display = "none";
+        const authButtons = document.getElementById("nav-auth-btns");
+        if (authButtons) authButtons.style.display = "none";
         const info = document.getElementById("nav-user-info");
-        info.style.display = "flex";
-        document.getElementById("user-avatar").textContent = initials;
+        if (info) info.style.display = "flex";
+        const avatar = document.getElementById("user-avatar");
+        if (avatar) avatar.textContent = initials;
       }
 
       function logout() {
         currentUser = null;
-        document.getElementById("nav-auth-btns").style.display = "flex";
-        document.getElementById("nav-user-info").style.display = "none";
+        clearCurrentUser();
+        const authButtons = document.getElementById("nav-auth-btns");
+        if (authButtons) authButtons.style.display = "flex";
+        const info = document.getElementById("nav-user-info");
+        if (info) info.style.display = "none";
         showToast("Signed out successfully", "ℹ️");
-        showPage("home");
+        window.location.href = 'home.html';
       }
 
       /* ─── TABLES ─── */
@@ -669,6 +717,7 @@
         renderOrderItems(menuItems);
         loadBookings("upcoming");
         initAdminPanels();
+        restoreUser();
       }
 
       // Admin nav link

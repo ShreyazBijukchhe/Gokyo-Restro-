@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokyo Bistro — Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="home.html">Gokyo <span>Bistro</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html">Order Food</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('booking.html');
+              return false;
+            "
+            >Book Table</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('my-bookings.html');
+              return false;
+            "
+            >My Bookings</a
+          >
+        </li>
+      </ul>
+      <div class="nav-user">
+        <div id="nav-auth-btns">
+          <a href="login.html" class="btn-outline">Sign In</a>
+          <a href="register.html" class="nav-btn">Reserve</a>
+        </div>
+        <div id="nav-user-info">
+          <div class="user-avatar" id="user-avatar">SB</div>
+          <a onclick="logout()">Sign out</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="page-header">
+        <div class="section-eyebrow">Our Kitchen</div>
+        <h1 class="section-title">The <em>Menu</em></h1>
+        <p>Fresh ingredients, honest cooking, extraordinary flavour.</p>
+      </div>
+      <div class="menu-page">
+        <div class="menu-filter">
+          <button class="filter-btn active" onclick="filterMenu('all', this)">
+            All
+          </button>
+          <button class="filter-btn" onclick="filterMenu('starters', this)">
+            Starters
+          </button>
+          <button class="filter-btn" onclick="filterMenu('mains', this)">
+            Mains
+          </button>
+          <button class="filter-btn" onclick="filterMenu('drinks', this)">
+            Drinks
+          </button>
+          <button class="filter-btn" onclick="filterMenu('premium', this)">
+            Premium
+          </button>
+        </div>
+        <div class="menu-full-grid" id="menu-full-grid"></div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-bottom" style="border: none; padding: 0">
+        <span>© 2026 Gokyo Bistro</span>
+        <a href="home.html" style="color: var(--gold)">← Back to Home</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✅</span>
+      <span class="toast-text" id="toast-text">Action completed</span>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

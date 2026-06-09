@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokyo Bistro — Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="home.html">Gokyo <span>Bistro</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="order.html">Order Food</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('booking.html');
+              return false;
+            "
+            >Book Table</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('my-bookings.html');
+              return false;
+            "
+            >My Bookings</a
+          >
+        </li>
+      </ul>
+      <div class="nav-user">
+        <div id="nav-auth-btns">
+          <a href="login.html" class="btn-outline">Sign In</a>
+          <a href="register.html" class="nav-btn">Reserve</a>
+        </div>
+        <div id="nav-user-info">
+          <div class="user-avatar" id="user-avatar">SB</div>
+          <a onclick="logout()">Sign out</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="auth-wrap">
+        <div class="auth-left">
+          <div class="auth-tagline">Join <em>Gokyo</em></div>
+          <p class="auth-desc">
+            Create your account and enjoy table booking, online ordering,
+            exclusive offers, and more.
+          </p>
+        </div>
+        <div class="auth-right">
+          <div class="auth-form-box">
+            <div class="auth-form-title">Create Account</div>
+            <p class="auth-form-sub">
+              Already have one?
+              <span
+                class="auth-link"
+                onclick="window.location.href = 'login.html'"
+                >Sign in</span
+              >
+            </p>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="reg-name"
+                  placeholder="Shreyaz Bijukchhe"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input
+                  type="tel"
+                  class="form-input"
+                  id="reg-phone"
+                  placeholder="98XXXXXXXX"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-input"
+                id="reg-email"
+                placeholder="you@email.com"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-input"
+                id="reg-password"
+                placeholder="Min. 8 characters"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Account Type</label>
+              <select class="form-input" id="reg-type">
+                <option value="member">Member</option>
+                <option value="visitor">Visitor</option>
+              </select>
+            </div>
+            <button
+              class="btn-primary"
+              style="width: 100%; text-align: center"
+              onclick="doRegister()"
+            >
+              Create Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-bottom" style="border: none; padding: 0">
+        <span>© 2026 Gokyo Bistro</span>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✅</span>
+      <span class="toast-text" id="toast-text">Action completed</span>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
