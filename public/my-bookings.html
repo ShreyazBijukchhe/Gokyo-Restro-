@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokyo Bistro — My Bookings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="home.html">Gokyo <span>Bistro</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="menu.html">Menu & Order</a></li>
+        <li><a href="booking.html">Book Table</a></li>
+        <li><a href="my-bookings.html">My Bookings</a></li>
+      </ul>
+      <div class="nav-user">
+        <div id="nav-auth-btns">
+          <a href="login.html" class="btn-outline">Sign In</a>
+          <a href="register.html" class="nav-btn">Reserve</a>
+        </div>
+        <div id="nav-user-info">
+          <div class="user-avatar" id="user-avatar">SB</div>
+          <a onclick="logout()">Sign out</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div id="my-bookings" class="page active">
+        <div class="page-header">
+          <div class="section-eyebrow">Your Account</div>
+          <h1 class="section-title">My <em>Bookings</em></h1>
+          <p>
+            Manage your reservations — view, cancel, or rate your experience.
+          </p>
+        </div>
+        <div class="bookings-layout">
+          <div class="booking-tabs">
+            <div
+              class="tab-btn active"
+              onclick="filterBookings('upcoming', this)"
+            >
+              Upcoming
+            </div>
+            <div class="tab-btn" onclick="filterBookings('past', this)">
+              Past
+            </div>
+            <div class="tab-btn" onclick="filterBookings('cancelled', this)">
+              Cancelled
+            </div>
+          </div>
+          <div id="bookings-list"></div>
+        </div>
+      </div>
+
+      <div id="review" class="page" style="display: none">
+        <div class="page-header">
+          <div class="section-eyebrow">Share Your Story</div>
+          <h1 class="section-title">Rate Your <em>Experience</em></h1>
+          <p>
+            Your feedback helps us serve you better. Thank you for dining with
+            us.
+          </p>
+        </div>
+        <div class="review-wrap">
+          <div
+            style="
+              background: var(--parchment);
+              border: 1px solid var(--border);
+              border-radius: var(--radius);
+              padding: 16px 20px;
+              margin-bottom: 32px;
+            "
+          >
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+              "
+            >
+              Booking Reference
+            </div>
+            <div
+              style="
+                font-family: var(--font-display);
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--gold);
+              "
+            >
+              #GBR-2026-0130
+            </div>
+          </div>
+
+          <div class="stars-row">
+            <div class="stars-label">Food Quality</div>
+            <div
+              class="stars"
+              id="stars-food"
+              data-rating="0"
+              onclick="setStars(this, event)"
+            >
+              <span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span>
+            </div>
+          </div>
+          <div class="stars-row">
+            <div class="stars-label">Staff Behaviour</div>
+            <div
+              class="stars"
+              id="stars-staff"
+              data-rating="0"
+              onclick="setStars(this, event)"
+            >
+              <span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span>
+            </div>
+          </div>
+          <div class="stars-row">
+            <div class="stars-label">Ambience</div>
+            <div
+              class="stars"
+              id="stars-ambience"
+              data-rating="0"
+              onclick="setStars(this, event)"
+            >
+              <span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span>
+            </div>
+          </div>
+          <div class="stars-row">
+            <div class="stars-label">Overall Experience</div>
+            <div
+              class="stars"
+              id="stars-overall"
+              data-rating="0"
+              onclick="setStars(this, event)"
+            >
+              <span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span><span class="star">★</span
+              ><span class="star">★</span>
+            </div>
+          </div>
+
+          <div class="form-group mt-24">
+            <label class="form-label">Additional Feedback</label>
+            <textarea
+              class="review-text"
+              id="review-text"
+              placeholder="Tell us about your experience..."
+            ></textarea>
+          </div>
+          <button
+            class="btn-primary"
+            style="width: 100%; text-align: center"
+            onclick="submitReview()"
+          >
+            Submit Review
+          </button>
+          <button
+            class="btn-outline"
+            style="width: 100%; text-align: center; margin-top: 12px"
+            onclick="window.location.href = 'my-bookings.html'"
+          >
+            ← Back to My Bookings
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-bottom" style="border: none; padding: 0">
+        <span>© 2026 Gokyo Bistro</span>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✅</span>
+      <span class="toast-text" id="toast-text">Action completed</span>
+    </div>
+    <script src="/js/script.js"></script>
+    <script>
+      async function checkAuthStatus() {
+        try {
+          const response = await fetch("/api/user", {
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          const userAvatar = document.getElementById("user-avatar");
+          if (data.success && data.user) {
+            if (navAuthBtns) navAuthBtns.style.display = "none";
+            if (navUserInfo) navUserInfo.style.display = "flex";
+            if (userAvatar && data.user.name) {
+              const initials = data.user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .toUpperCase();
+              userAvatar.textContent = initials;
+            }
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+          } else {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+            localStorage.removeItem("gokyoLoggedIn");
+            localStorage.removeItem("gokyoUser");
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          if (!isLoggedIn) {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+          }
+        }
+      }
+      async function doLogin() {
+        const email = document.getElementById("login-email")?.value;
+        const password = document.getElementById("login-password")?.value;
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert("Login failed: " + (data.message || "Invalid credentials"));
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Login failed. Please try again.");
+        }
+      }
+      async function doRegister() {
+        const name = document.getElementById("reg-name")?.value;
+        const email = document.getElementById("reg-email")?.value;
+        const phone = document.getElementById("reg-phone")?.value;
+        const password = document.getElementById("reg-password")?.value;
+        const accountType =
+          document.getElementById("reg-type")?.value || "Visitor";
+        try {
+          const response = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              full_name: name,
+              email,
+              phone,
+              password,
+              account_type: accountType,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert(
+              "Registration failed: " + (data.message || "Please try again"),
+            );
+          }
+        } catch (error) {
+          console.error("Register error:", error);
+          alert("Registration failed. Please try again.");
+        }
+      }
+      async function logout() {
+        try {
+          await fetch("/api/logout", { method: "GET", credentials: "include" });
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
+        localStorage.removeItem("gokyoLoggedIn");
+        localStorage.removeItem("gokyoUser");
+        window.location.href = "home.html";
+      }
+      function requireAuth(page) {
+        const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+        if (isLoggedIn) {
+          window.location.href = page;
+        } else {
+          fetch("/api/user", { credentials: "include" })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success && data.user) {
+                localStorage.setItem("gokyoLoggedIn", "true");
+                localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+                window.location.href = page;
+              } else {
+                localStorage.setItem("gokyoAfterLoginPage", page);
+                window.location.href = "login.html";
+              }
+            })
+            .catch(() => {
+              localStorage.setItem("gokyoAfterLoginPage", page);
+              window.location.href = "login.html";
+            });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuthStatus();
+      });
+    </script>
+  </body>
+</html>

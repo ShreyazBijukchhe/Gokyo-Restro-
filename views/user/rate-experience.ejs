@@ -1,0 +1,55 @@
+<% include ../partials/header %>
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    <h2>Rate Your Experience</h2>
+    <p>Booking #<%= booking_id %></p>
+    <form method="POST" action="/review/submit">
+        <input type="hidden" name="booking_id" value="<%= booking_id %>">
+        
+        <div style="margin: 1rem 0;">
+            <label>Food quality ⭐</label>
+            <select name="food_quality" style="width: 100%; padding: 0.5rem;">
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Terrible</option>
+            </select>
+        </div>
+        <div style="margin: 1rem 0;">
+            <label>Staff behaviour ⭐</label>
+            <select name="staff_behaviour" style="width: 100%; padding: 0.5rem;">
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Terrible</option>
+            </select>
+        </div>
+        <div style="margin: 1rem 0;">
+            <label>Ambience ⭐</label>
+            <select name="ambience" style="width: 100%; padding: 0.5rem;">
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Terrible</option>
+            </select>
+        </div>
+        <div style="margin: 1rem 0;">
+            <label>Overall rating ⭐</label>
+            <select name="overall_rating" style="width: 100%; padding: 0.5rem;">
+                <option value="5">5 - Excellent</option>
+                <option value="4">4 - Good</option>
+                <option value="3">3 - Average</option>
+                <option value="2">2 - Poor</option>
+                <option value="1">1 - Terrible</option>
+            </select>
+        </div>
+        <div style="margin: 1rem 0;">
+            <label>Additional feedback</label>
+            <textarea name="additional_feedback" rows="4" style="width: 100%; padding: 0.5rem;"></textarea>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Submit Review</button>
+    </form>
+</div>
+<% include ../partials/footer %>

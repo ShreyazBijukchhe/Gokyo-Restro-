@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+<div class="card" style="max-width: 500px; margin: 0 auto;">
+    <h2>Payment</h2>
+    <div style="background: #f0f0f0; padding: 1rem; border-radius: 5px; margin: 1rem 0;">
+        <p><strong>Booking Summary</strong></p>
+        <p>Advance Payment: Rs. <%= amount %></p>
+    </div>
+    <form method="POST" action="/payment/process">
+        <input type="hidden" name="booking_id" value="<%= booking_id %>">
+        <input type="hidden" name="amount" value="<%= amount %>">
+        <div style="margin: 1rem 0;">
+            <label>Payment Method</label>
+            <select name="payment_method" style="width: 100%; padding: 0.5rem;">
+                <option value="eSewa">eSewa</option>
+                <option value="Khalti">Khalti</option>
+                <option value="Card">Card</option>
+                <option value="Cash">Cash</option>
+            </select>
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Pay Now</button>
+    </form>
+    <p style="font-size: 0.8rem; margin-top: 1rem;">Same day cancellation: Rs.500 deducted</p>
+</div>
+<% include ../partials/footer %>

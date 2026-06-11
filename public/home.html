@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokyo Bistro — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="home.html">Gokyo <span>Bistro</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="menu.html">Menu & Order</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('booking.html');
+              return false;
+            "
+            >Book Table</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('my-bookings.html');
+              return false;
+            "
+            >My Bookings</a
+          >
+        </li>
+      </ul>
+      <div class="nav-user">
+        <div id="nav-auth-btns">
+          <a href="login.html" class="btn-outline">Sign In</a>
+          <a href="register.html" class="nav-btn">Reserve</a>
+        </div>
+        <div id="nav-user-info">
+          <div class="user-avatar" id="user-avatar">SB</div>
+          <a onclick="logout()">Sign out</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" style="padding: 0">
+        <div class="hero-left">
+          <div class="hero-eyebrow">Est. 2018 · Jhamsikhel</div>
+          <h1 class="hero-title">A Table Worth <em>Remembering</em></h1>
+          <div class="hero-user-welcome" id="home-user-welcome">
+            Discover the flavours of Gokyo Bistro.
+          </div>
+          <p class="hero-subtitle">
+            Where Himalayan flavours meet contemporary hospitality. Indoor &
+            outdoor dining at the heart of Lalitpur.
+          </p>
+          <div class="hero-location">
+            Jhamsikhel, Lalitpur, Nepal · Open 11AM – 10PM
+          </div>
+          <div class="hero-ctas">
+            <button
+              class="btn-primary"
+              onclick="
+                requireAuth('booking.html');
+                return false;
+              "
+            >
+              Book a Table
+            </button>
+            <a class="btn-outline" href="menu.html"> View Menu </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num">8+</span
+              ><span class="stat-label">Years Serving</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">312</span
+              ><span class="stat-label">Bookings / Mo</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">4.8★</span
+              ><span class="stat-label">Avg Rating</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div
+            class="hero-img-box"
+            style="
+              background: url(&quot;images/Hero Background.png&quot;)
+                center/cover no-repeat;
+              width: 100%;
+              height: 100%;
+            "
+          ></div>
+          <div class="hero-decor">G</div>
+        </div>
+      </section>
+
+      <div class="offers-strip">
+        <div class="offer-badge">
+          <div class="offer-dot"></div>
+          <span>20% Off on Weekdays · Mon–Fri</span>
+        </div>
+        <div class="offer-divider"></div>
+        <div class="offer-badge">
+          <div class="offer-dot"></div>
+          <span>Free Dessert on Birthdays</span>
+        </div>
+        <div class="offer-divider"></div>
+        <div class="offer-badge">
+          <div class="offer-dot"></div>
+          <span>Advance Booking: Rs. 1,200 only</span>
+        </div>
+        <div class="offer-divider"></div>
+        <div class="offer-badge">
+          <div class="offer-dot"></div>
+          <span>Home Delivery Available · Members</span>
+        </div>
+      </div>
+
+      <section style="padding: 100px 80px; background: var(--parchment)">
+        <div class="section-eyebrow">Seasonal Favourites</div>
+        <h2 class="section-title">Crafted with <em>Intention</em></h2>
+        <p class="section-lead">
+          Each dish tells a story of the mountains — local ingredients,
+          time-honoured techniques, and a touch of modern flair.
+        </p>
+        <div class="menu-grid" id="home-featured-menu">
+          <p style="font-size: 16px; color: var(--muted)">
+            Loading featured menu items...
+          </p>
+        </div>
+        <div style="text-align: center; margin-top: 48px">
+          <a class="btn-outline" href="menu.html">Explore Full Menu →</a>
+        </div>
+      </section>
+
+      <section style="padding: 80px; background: var(--cream)">
+        <div class="features-row">
+          <div class="feature-cell">
+            <div class="feature-icon">🪑</div>
+            <div class="feature-title">Indoor & Outdoor</div>
+            <div class="feature-desc">
+              Choose your setting — our elegant indoor hall or the serene garden
+              terrace.
+            </div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-icon">🛵</div>
+            <div class="feature-title">Home Delivery</div>
+            <div class="feature-desc">
+              Enjoy Gokyo Bistro's finest at your doorstep. Members-only
+              delivery service.
+            </div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-icon">🥂</div>
+            <div class="feature-title">Premium Beverages</div>
+            <div class="feature-desc">
+              Curated selection of wines, whiskeys, and artisan teas for premium
+              members.
+            </div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Easy Booking</div>
+            <div class="feature-desc">
+              Reserve in minutes. Real-time table availability with instant
+              confirmation.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        style="padding: 100px 80px; background: var(--ink); color: var(--cream)"
+      >
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+          "
+        >
+          <div>
+            <div class="section-eyebrow" style="color: var(--gold)">
+              Our Story
+            </div>
+            <h2
+              style="
+                font-family: var(--font-display);
+                font-size: clamp(36px, 4vw, 52px);
+                font-weight: 300;
+                line-height: 1.1;
+                margin-bottom: 20px;
+                color: var(--cream);
+              "
+            >
+              Nestled in the Heart of
+              <em style="font-style: italic; color: var(--gold)">Lalitpur</em>
+            </h2>
+            <p
+              style="
+                font-size: 15px;
+                color: rgba(245, 240, 232, 0.5);
+                line-height: 1.9;
+                margin-bottom: 20px;
+              "
+            >
+              Gokyo Bistro was born from a simple idea — that great food
+              deserves a great setting. Since 2018, we have welcomed guests
+              seeking a moment of calm, connection, and culinary delight in
+              Jhamsikhel.
+            </p>
+            <p
+              style="
+                font-size: 15px;
+                color: rgba(245, 240, 232, 0.5);
+                line-height: 1.9;
+              "
+            >
+              Our chefs draw inspiration from Nepal's rich culinary heritage,
+              crafting dishes that honour tradition while embracing contemporary
+              technique.
+            </p>
+            <button
+              class="btn-outline"
+              style="
+                margin-top: 32px;
+                border-color: rgba(245, 240, 232, 0.2);
+                color: var(--cream);
+              "
+              onclick="
+                requireAuth('booking.html');
+                return false;
+              "
+            >
+              Reserve Your Evening
+            </button>
+          </div>
+          <div style="position: relative">
+            <img
+              src="images/Restaurant Ambience.png"
+              alt="Restaurant Ambience"
+              style="
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 12px;
+                border: 1px solid rgba(184, 151, 74, 0.2);
+              "
+            />
+            <div
+              style="
+                position: absolute;
+                bottom: -20px;
+                right: -20px;
+                background: var(--gold);
+                padding: 20px 24px;
+                border-radius: var(--radius);
+              "
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 28px;
+                  font-weight: 600;
+                  color: var(--ink);
+                  line-height: 1;
+                "
+              >
+                4.8
+              </div>
+              <div
+                style="
+                  font-size: 11px;
+                  color: var(--ink);
+                  opacity: 0.7;
+                  letter-spacing: 0.1em;
+                "
+              >
+                GOOGLE RATING
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Gokyo <em>Bistro</em></div>
+          <p class="footer-brand-desc">
+            A sanctuary of flavour at Jhamsikhel, Lalitpur. Indoor & outdoor
+            dining, home delivery, and private events.
+          </p>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigate</div>
+          <ul class="footer-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="menu.html">Menu & Order</a></li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  requireAuth('booking.html');
+                  return false;
+                "
+                >Book Table</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Account</div>
+          <ul class="footer-links">
+            <li><a href="login.html">Sign In</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  requireAuth('my-bookings.html');
+                  return false;
+                "
+                >My Bookings</a
+              >
+            </li>
+            <li><a href="home.html">Rate Experience</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <ul class="footer-links">
+            <li><a>📍 Jhamsikhel, Lalitpur</a></li>
+            <li><a>📞 +977 98XXXXXXXX</a></li>
+            <li><a>✉ hello@gokyo.com</a></li>
+            <li><a>🕐 11AM – 10PM Daily</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Gokyo Bistro. All rights reserved.</span>
+        <div class="footer-bottom-right">
+          <a style="color: inherit; cursor: pointer">Privacy</a>
+          <a style="color: inherit; cursor: pointer">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✅</span>
+      <span class="toast-text" id="toast-text">Action completed</span>
+    </div>
+    <script src="/js/script.js"></script>
+    <script>
+      async function checkAuthStatus() {
+        try {
+          const response = await fetch("/api/user", {
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          const userAvatar = document.getElementById("user-avatar");
+          if (data.success && data.user) {
+            if (navAuthBtns) navAuthBtns.style.display = "none";
+            if (navUserInfo) navUserInfo.style.display = "flex";
+            if (userAvatar && data.user.name) {
+              const initials = data.user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .toUpperCase();
+              userAvatar.textContent = initials;
+            }
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+          } else {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+            localStorage.removeItem("gokyoLoggedIn");
+            localStorage.removeItem("gokyoUser");
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          if (!isLoggedIn) {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+          }
+        }
+      }
+      async function doLogin() {
+        const email = document.getElementById("login-email")?.value;
+        const password = document.getElementById("login-password")?.value;
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert("Login failed: " + (data.message || "Invalid credentials"));
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Login failed. Please try again.");
+        }
+      }
+      async function doRegister() {
+        const name = document.getElementById("reg-name")?.value;
+        const email = document.getElementById("reg-email")?.value;
+        const phone = document.getElementById("reg-phone")?.value;
+        const password = document.getElementById("reg-password")?.value;
+        const accountType =
+          document.getElementById("reg-type")?.value || "Visitor";
+        try {
+          const response = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              full_name: name,
+              email,
+              phone,
+              password,
+              account_type: accountType,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert(
+              "Registration failed: " + (data.message || "Please try again"),
+            );
+          }
+        } catch (error) {
+          console.error("Register error:", error);
+          alert("Registration failed. Please try again.");
+        }
+      }
+      async function logout() {
+        try {
+          await fetch("/api/logout", { method: "GET", credentials: "include" });
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
+        localStorage.removeItem("gokyoLoggedIn");
+        localStorage.removeItem("gokyoUser");
+        window.location.href = "home.html";
+      }
+      function requireAuth(page) {
+        const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+        if (isLoggedIn) {
+          window.location.href = page;
+        } else {
+          fetch("/api/user", { credentials: "include" })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success && data.user) {
+                localStorage.setItem("gokyoLoggedIn", "true");
+                localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+                window.location.href = page;
+              } else {
+                localStorage.setItem("gokyoAfterLoginPage", page);
+                window.location.href = "login.html";
+              }
+            })
+            .catch(() => {
+              localStorage.setItem("gokyoAfterLoginPage", page);
+              window.location.href = "login.html";
+            });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuthStatus();
+      });
+    </script>
+  </body>
+</html>

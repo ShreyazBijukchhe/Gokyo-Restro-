@@ -1,0 +1,14 @@
+<% include ../partials/header %>
+<div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+    <h2 style="color: green;">✓ Booking Confirmed!</h2>
+    <p>Payment successful! Your table has been reserved.</p>
+    <div style="background: #f5f0e8; padding: 1rem; border-radius: 5px; margin: 1rem 0; text-align: left;">
+        <p><strong>Booking ID:</strong> <%= booking.booking_number %></p>
+        <p><strong>Table:</strong> <%= booking.table_number %> · <%= booking.location %></p>
+        <p><strong>Date & time:</strong> <%= booking.booking_date %> · <%= booking.booking_time %></p>
+        <p><strong>Guests:</strong> <%= booking.number_of_guests %></p>
+        <p><strong>Amount paid:</strong> Rs.<%= booking.advance_payment %></p>
+    </div>
+    <a href="/my-bookings" class="btn">View My Bookings</a>
+</div>
+<% include ../partials/footer %>

@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gokyo Bistro — Book Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <a href="home.html">Gokyo <span>Bistro</span></a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="menu.html">Menu & Order</a></li>
+        <li><a href="booking.html">Book Table</a></li>
+        <li>
+          <a
+            href="#"
+            onclick="
+              requireAuth('my-bookings.html');
+              return false;
+            "
+            >My Bookings</a
+          >
+        </li>
+      </ul>
+      <div class="nav-user">
+        <div id="nav-auth-btns">
+          <a href="login.html" class="btn-outline">Sign In</a>
+          <a href="register.html" class="nav-btn">Reserve</a>
+        </div>
+        <div id="nav-user-info">
+          <div class="user-avatar" id="user-avatar">SB</div>
+          <a onclick="logout()">Sign out</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div id="booking" class="page active">
+        <div class="page-header">
+          <div class="section-eyebrow">Reserve · Dine · Enjoy</div>
+          <h1 class="section-title">Book a <em>Table</em></h1>
+          <p>
+            Select your date, time, and preferred table. An advance of Rs. 1,200
+            secures your reservation.
+          </p>
+        </div>
+        <div class="booking-layout">
+          <div class="booking-main">
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 24px;
+                color: var(--ink);
+              "
+            >
+              1. Choose Date & Time
+            </h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" class="form-input" id="book-date" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Time</label>
+                <select class="form-input" id="book-time">
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>6:00 PM</option>
+                  <option selected>7:00 PM</option>
+                  <option>8:00 PM</option>
+                  <option>9:00 PM</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Number of Guests</label>
+              <select class="form-input" id="book-guests">
+                <option>1</option>
+                <option selected>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 8px;
+                color: var(--ink);
+              "
+            >
+              2. Select Your Table
+            </h3>
+            <p
+              style="font-size: 13px; color: var(--muted); margin-bottom: 20px"
+            >
+              Tables shown are available for your selected date and time.
+            </p>
+            <div class="table-grid" id="table-grid"></div>
+            <div class="table-legend">
+              <div class="legend-item">
+                <div class="legend-dot av"></div>
+                Available
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot oc"></div>
+                Occupied
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot sel"></div>
+                Selected
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 8px;
+                color: var(--ink);
+              "
+            >
+              3. Beverage Preferences
+              <span
+                style="font-size: 13px; color: var(--muted); font-weight: 400"
+                >(Optional)</span
+              >
+            </h3>
+            <p
+              style="font-size: 13px; color: var(--muted); margin-bottom: 20px"
+            >
+              Staff will prepare your preferred drinks in advance.
+            </p>
+            <div class="beverage-list">
+              <div
+                class="beverage-item"
+                onclick="toggleBev(this, 'masala-tea')"
+              >
+                <div class="bev-icon">☕</div>
+                <div class="bev-info">
+                  <div class="bev-name">Masala Tea</div>
+                  <div class="bev-sub">Hot · Traditional blend</div>
+                </div>
+                <div class="bev-price">Rs. 120</div>
+                <div class="bev-check">✓</div>
+              </div>
+              <div
+                class="beverage-item"
+                onclick="toggleBev(this, 'fresh-juice')"
+              >
+                <div class="bev-icon">🍊</div>
+                <div class="bev-info">
+                  <div class="bev-name">Fresh Juice</div>
+                  <div class="bev-sub">Cold · Seasonal fruits</div>
+                </div>
+                <div class="bev-price">Rs. 180</div>
+                <div class="bev-check">✓</div>
+              </div>
+              <div
+                class="beverage-item"
+                onclick="toggleBev(this, 'cappuccino')"
+              >
+                <div class="bev-icon">☕</div>
+                <div class="bev-info">
+                  <div class="bev-name">Cappuccino</div>
+                  <div class="bev-sub">Hot · Italian roast</div>
+                </div>
+                <div class="bev-price">Rs. 200</div>
+                <div class="bev-check">✓</div>
+              </div>
+            </div>
+            <div style="margin-top: 20px">
+              <div class="premium-badge">🍷 Premium — Wine & Whiskey</div>
+              <p
+                style="
+                  font-size: 13px;
+                  color: var(--muted);
+                  margin-bottom: 12px;
+                "
+              >
+                Available for Premium Members only
+              </p>
+              <input
+                type="text"
+                class="form-input"
+                placeholder="e.g. House Red Wine, Johnnie Walker Black..."
+                id="wine-pref"
+              />
+            </div>
+
+            <div class="divider"></div>
+
+            <h3
+              style="
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 16px;
+                color: var(--ink);
+              "
+            >
+              4. Payment Method
+            </h3>
+            <div class="pay-methods">
+              <div class="pay-method active" onclick="selectPay(this)">
+                eSewa
+              </div>
+              <div class="pay-method" onclick="selectPay(this)">Khalti</div>
+              <div class="pay-method" onclick="selectPay(this)">Card</div>
+              <div class="pay-method" onclick="selectPay(this)">Cash</div>
+            </div>
+            <div class="form-group mt-24">
+              <label class="form-label">Payment ID / Mobile Number</label>
+              <input
+                type="text"
+                class="form-input"
+                id="pay-id"
+                placeholder="98XXXXXXXX"
+              />
+            </div>
+            <button
+              class="btn-primary"
+              style="
+                width: 100%;
+                text-align: center;
+                margin-top: 16px;
+                font-size: 14px;
+                padding: 18px;
+              "
+              onclick="confirmBooking()"
+            >
+              Pay Rs. 1,200 & Confirm Booking
+            </button>
+            <p
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-align: center;
+                margin-top: 12px;
+              "
+            >
+              Same-day cancellation: Rs. 500 deducted from advance
+            </p>
+          </div>
+
+          <div class="booking-sidebar">
+            <div class="sidebar-title">Booking Summary</div>
+            <div class="summary-row">
+              <div class="summary-label">Table</div>
+              <div class="summary-val" id="sum-table">— Not selected</div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Date</div>
+              <div class="summary-val" id="sum-date">—</div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Time</div>
+              <div class="summary-val" id="sum-time">7:00 PM</div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Guests</div>
+              <div class="summary-val" id="sum-guests">2</div>
+            </div>
+            <div class="summary-row">
+              <div class="summary-label">Beverages</div>
+              <div class="summary-val" id="sum-bevs">None</div>
+            </div>
+            <div class="summary-total">
+              <div class="summary-total-label">Advance</div>
+              <div class="summary-total-val">Rs. 1,200</div>
+            </div>
+            <div class="sidebar-note">
+              Full advance Rs. 1,200 deducted on confirmation. Remaining balance
+              due at the restaurant.
+            </div>
+            <div
+              style="
+                height: 120px;
+                background: linear-gradient(
+                  135deg,
+                  var(--parchment),
+                  var(--gold-pale)
+                );
+                border-radius: 8px;
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px dashed var(--border);
+              "
+            >
+              <span style="font-size: 36px">🏮</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="confirmation" class="page" style="display: none">
+        <div class="confirm-wrap">
+          <div class="confirm-icon">✅</div>
+          <h1 class="confirm-title">Booking Confirmed!</h1>
+          <p class="confirm-sub">
+            Payment successful. Your table has been reserved.
+          </p>
+          <div class="confirm-card">
+            <div class="confirm-booking-id" id="conf-id">
+              Booking ID: #GBR-2026-0142
+            </div>
+            <div class="confirm-row">
+              <div class="confirm-row-label">Table</div>
+              <div class="confirm-row-val" id="conf-table">T3 · Indoor</div>
+            </div>
+            <div class="confirm-row">
+              <div class="confirm-row-label">Date & Time</div>
+              <div class="confirm-row-val" id="conf-datetime">—</div>
+            </div>
+            <div class="confirm-row">
+              <div class="confirm-row-label">Guests</div>
+              <div class="confirm-row-val" id="conf-guests">2</div>
+            </div>
+            <div class="confirm-row">
+              <div class="confirm-row-label">Amount Paid</div>
+              <div class="confirm-row-val confirm-amount">Rs. 1,200</div>
+            </div>
+          </div>
+          <div class="confirm-actions">
+            <button class="btn-outline" onclick="downloadReceipt()">
+              Download Receipt
+            </button>
+            <button
+              class="btn-primary"
+              onclick="window.location.href = 'my-bookings.html'"
+            >
+              View My Bookings
+            </button>
+          </div>
+          <button
+            class="btn-outline"
+            style="width: 100%; margin-top: 16px"
+            onclick="window.location.href = 'home.html'"
+          >
+            ← Back to Home
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-bottom" style="border: none; padding: 0">
+        <span>© 2026 Gokyo Bistro</span>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">
+      <span class="toast-icon" id="toast-icon">✅</span>
+      <span class="toast-text" id="toast-text">Action completed</span>
+    </div>
+    <script src="/js/script.js"></script>
+    <script>
+      async function checkAuthStatus() {
+        try {
+          const response = await fetch("/api/user", {
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+          });
+          const data = await response.json();
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          const userAvatar = document.getElementById("user-avatar");
+          if (data.success && data.user) {
+            if (navAuthBtns) navAuthBtns.style.display = "none";
+            if (navUserInfo) navUserInfo.style.display = "flex";
+            if (userAvatar && data.user.name) {
+              const initials = data.user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")
+                .toUpperCase();
+              userAvatar.textContent = initials;
+            }
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+          } else {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+            localStorage.removeItem("gokyoLoggedIn");
+            localStorage.removeItem("gokyoUser");
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error);
+          const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+          const navAuthBtns = document.getElementById("nav-auth-btns");
+          const navUserInfo = document.getElementById("nav-user-info");
+          if (!isLoggedIn) {
+            if (navAuthBtns) navAuthBtns.style.display = "flex";
+            if (navUserInfo) navUserInfo.style.display = "none";
+          }
+        }
+      }
+      async function doLogin() {
+        const email = document.getElementById("login-email")?.value;
+        const password = document.getElementById("login-password")?.value;
+        try {
+          const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert("Login failed: " + (data.message || "Invalid credentials"));
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Login failed. Please try again.");
+        }
+      }
+      async function doRegister() {
+        const name = document.getElementById("reg-name")?.value;
+        const email = document.getElementById("reg-email")?.value;
+        const phone = document.getElementById("reg-phone")?.value;
+        const password = document.getElementById("reg-password")?.value;
+        const accountType =
+          document.getElementById("reg-type")?.value || "Visitor";
+        try {
+          const response = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              full_name: name,
+              email,
+              phone,
+              password,
+              account_type: accountType,
+            }),
+          });
+          const data = await response.json();
+          if (data.success) {
+            localStorage.setItem("gokyoLoggedIn", "true");
+            localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+            window.location.href = "home.html";
+          } else {
+            alert(
+              "Registration failed: " + (data.message || "Please try again"),
+            );
+          }
+        } catch (error) {
+          console.error("Register error:", error);
+          alert("Registration failed. Please try again.");
+        }
+      }
+      async function logout() {
+        try {
+          await fetch("/api/logout", { method: "GET", credentials: "include" });
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
+        localStorage.removeItem("gokyoLoggedIn");
+        localStorage.removeItem("gokyoUser");
+        window.location.href = "home.html";
+      }
+      function requireAuth(page) {
+        const isLoggedIn = localStorage.getItem("gokyoLoggedIn") === "true";
+        if (isLoggedIn) {
+          window.location.href = page;
+        } else {
+          fetch("/api/user", { credentials: "include" })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success && data.user) {
+                localStorage.setItem("gokyoLoggedIn", "true");
+                localStorage.setItem("gokyoUser", JSON.stringify(data.user));
+                window.location.href = page;
+              } else {
+                localStorage.setItem("gokyoAfterLoginPage", page);
+                window.location.href = "login.html";
+              }
+            })
+            .catch(() => {
+              localStorage.setItem("gokyoAfterLoginPage", page);
+              window.location.href = "login.html";
+            });
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuthStatus();
+      });
+    </script>
+  </body>
+</html>

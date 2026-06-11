@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<h2>My Bookings</h2>
+<% if (bookings.length > 0) { %>
+    <% bookings.forEach(booking => { %>
+        <div class="card">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <strong><%= booking.booking_number %></strong>
+                    <span style="color: <%= booking.status === 'Confirmed' ? 'green' : 'red' %>;"> <%= booking.status %></span>
+                    <p><%= booking.booking_date %> · <%= booking.booking_time %> · Table <%= booking.table_number %></p>
+                    <p><%= booking.number_of_guests %> guests · Rs.<%= booking.advance_payment %> paid</p>
+                </div>
+                <div>
+                    <% if (booking.status === 'Confirmed') { %>
+                        <form method="POST" action="/booking/cancel/<%= booking.booking_id %>" style="display: inline;">
+                            <button type="submit" class="btn" style="background: #f94144;">Cancel Booking</button>
+                        </form>
+                        <a href="/review?booking_id=<%= booking.booking_id %>" class="btn">Rate Experience</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+<% } else { %>
+    <p>No bookings found.</p>
+<% } %>
+<% include ../partials/footer %>

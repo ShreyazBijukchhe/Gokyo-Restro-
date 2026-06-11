@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<h2>Admin Dashboard</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div class="card" style="text-align: center;">
+        <h1><%= bookingsToday %></h1>
+        <p>Bookings today</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <h1>Rs.<%= revenueToday %></h1>
+        <p>Revenue today</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <h1><%= tablesOccupied %></h1>
+        <p>Tables occupied</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <h1><%= ordersPending %></h1>
+        <p>Orders pending</p>
+    </div>
+</div>
+<div class="card">
+    <h3>Quick Actions</h3>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/admin/manage-menu" class="btn">Manage Menu</a>
+        <a href="/admin/financial-report" class="btn">Generate Report</a>
+        <a href="/admin/post-offer" class="btn">Post Offer</a>
+    </div>
+</div>
+<% include ../partials/footer %>

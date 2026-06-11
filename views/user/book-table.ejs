@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+<div class="card">
+    <h2>Book a Table</h2>
+    <form method="GET" action="/booking">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+            <input type="date" name="date" value="<%= date %>" required style="padding: 0.5rem;">
+            <input type="time" name="time" value="<%= time %>" required style="padding: 0.5rem;">
+            <input type="number" name="guests" placeholder="Number of guests" value="<%= guests %>" required style="padding: 0.5rem;">
+        </div>
+        <button type="submit" class="btn" style="margin-top: 1rem;">Check Availability</button>
+    </form>
+</div>
+
+<% if (availableTables && availableTables.length > 0) { %>
+    <div class="card">
+        <h3>Select Table</h3>
+        <form method="POST" action="/booking/create">
+            <input type="hidden" name="booking_date" value="<%= date %>">
+            <input type="hidden" name="booking_time" value="<%= time %>">
+            <input type="hidden" name="number_of_guests" value="<%= guests %>">
+            <div class="table-grid">
+                <% availableTables.forEach(table => { %>
+                    <div class="table-card available" onclick="selectTable(this, <%= table.table_id %>)">
+                        <strong><%= table.table_number %></strong><br>
+                        <%= table.capacity %> pax<br>
+                        <%= table.location %>
+                        <input type="radio" name="table_id" value="<%= table.table_id %>" style="display: none;">
+                    </div>
+                <% }); %>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 1rem;">Continue to Payment</button>
+        </form>
+    </div>
+<% } else if (date && time && guests) { %>
+    <div class="card">
+        <p class="error">No tables available for selected criteria.</p>
+    </div>
+<% } %>
+
+<script>
+    function selectTable(element, tableId) {
+        document.querySelectorAll('.table-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        element.querySelector('input[type="radio"]').checked = true;
+    }
+</script>
+<% include ../partials/footer %>

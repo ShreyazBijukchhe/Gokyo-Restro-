@@ -1,0 +1,41 @@
+<% include ../partials/header %>
+<h2>Manage Menu</h2>
+<div class="card">
+    <h3>Add New Item</h3>
+    <form method="POST" action="/admin/add-menu-item">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <input type="text" name="item_name" placeholder="Item name" required style="padding: 0.5rem;">
+            <select name="category" style="padding: 0.5rem;">
+                <option value="Starters">Starters</option>
+                <option value="Mains">Mains</option>
+                <option value="Beverages">Beverages</option>
+            </select>
+            <input type="number" name="price" placeholder="Price" required style="padding: 0.5rem;">
+            <textarea name="description" placeholder="Description" style="padding: 0.5rem;"></textarea>
+        </div>
+        <button type="submit" class="btn" style="margin-top: 1rem;">Add Item</button>
+    </form>
+</div>
+<div class="card">
+    <h3>Menu Items</h3>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Category</th><th>Price</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+            <% items.forEach(item => { %>
+                <tr>
+                    <td><%= item.item_name %></td>
+                    <td><%= item.category %></td>
+                    <td>Rs.<%= item.price %></td>
+                    <td>
+                        <form method="POST" action="/admin/delete-menu-item/<%= item.item_id %>">
+                            <button type="submit" class="btn" style="background: #f94144;">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<% include ../partials/footer %>

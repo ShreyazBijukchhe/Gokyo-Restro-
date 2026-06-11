@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+<div class="card">
+    <h2>My Cart</h2>
+    <% if (cart && cart.length > 0) { %>
+        <% cart.forEach(item => { %>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #ddd;">
+                <div>
+                    <strong><%= item.name %></strong> x<%= item.quantity %>
+                </div>
+                <div>
+                    Rs.<%= item.price * item.quantity %>
+                    <form method="POST" action="/menu/update-cart" style="display: inline;">
+                        <input type="hidden" name="item_id" value="<%= item.item_id %>">
+                        <input type="number" name="quantity" value="<%= item.quantity %>" min="0" style="width: 60px;">
+                        <button type="submit" class="btn">Update</button>
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+        <div style="margin-top: 1rem; text-align: right;">
+            <p>Subtotal: Rs.<%= subtotal %></p>
+            <p>Tax (13%): Rs.<%= tax %></p>
+            <p><strong>Total: Rs.<%= total %></strong></p>
+            <button class="btn" onclick="alert('Order placed! Thank you!')">Place Order</button>
+        </div>
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+    <a href="/menu" class="btn">Continue Shopping</a>
+</div>
+<% include ../partials/footer %>

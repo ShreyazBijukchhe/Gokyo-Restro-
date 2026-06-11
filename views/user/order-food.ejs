@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+<h2>Order Food</h2>
+<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+    <a href="/menu?category=All" class="btn">All</a>
+    <a href="/menu?category=Starters" class="btn">Starters</a>
+    <a href="/menu?category=Mains" class="btn">Mains</a>
+    <a href="/menu?category=Beverages" class="btn">Beverages</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+    <% items.forEach(item => { %>
+        <div class="card">
+            <h3><%= item.item_name %></h3>
+            <p><%= item.description || '' %></p>
+            <p><strong>Rs.<%= item.price %></strong></p>
+            <form method="POST" action="/menu/add-to-cart">
+                <input type="hidden" name="item_id" value="<%= item.item_id %>">
+                <input type="hidden" name="name" value="<%= item.item_name %>">
+                <input type="hidden" name="price" value="<%= item.price %>">
+                <button type="submit" class="btn">+ Add to Cart</button>
+            </form>
+        </div>
+    <% }); %>
+</div>
+<a href="/cart" class="btn" style="position: fixed; bottom: 80px; right: 20px;">🛒 View Cart</a>
+<% include ../partials/footer %>

@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+<h2>Financial Report</h2>
+<div class="card">
+    <h3>Report period: <%= report.report_period %></h3>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: center;">
+        <div><h1>Rs.<%= report.total_revenue.toLocaleString() %></h1><p>Total revenue</p></div>
+        <div><h1><%= report.total_bookings %></h1><p>Total bookings</p></div>
+    </div>
+    <h3>Revenue breakdown</h3>
+    <table>
+        <tr><td>Table bookings</td><td>Rs.<%= report.table_booking_revenue.toLocaleString() %></td></tr>
+        <tr><td>Food orders</td><td>Rs.<%= report.food_orders_revenue.toLocaleString() %></td></tr>
+        <tr><td>Beverages</td><td>Rs.<%= report.beverages_revenue.toLocaleString() %></td></tr>
+    </table>
+    <div style="margin-top: 1rem; background: #e8f4f8; padding: 1rem; border-radius: 5px;">
+        <p><strong>Predicted next year: Rs.<%= report.predicted_revenue.toLocaleString() %></strong></p>
+        <p>+<%= report.growth_percentage %>% growth</p>
+    </div>
+    <div style="margin-top: 1rem;">
+        <button class="btn" onclick="alert('PDF download would start here')">Download PDF</button>
+        <button class="btn" onclick="alert('CSV export would start here')">Export CSV</button>
+    </div>
+</div>
+<% include ../partials/footer %>

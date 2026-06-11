@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+<h2>Post Offer / Scheme</h2>
+<div class="card">
+    <h3>Create New Offer</h3>
+    <form method="POST" action="/admin/create-offer">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <input type="text" name="offer_title" placeholder="Offer title" required style="padding: 0.5rem;">
+            <textarea name="description" placeholder="Description" style="padding: 0.5rem;"></textarea>
+            <input type="number" name="discount_percentage" placeholder="Discount (%)" required style="padding: 0.5rem;">
+            <input type="date" name="valid_from" required style="padding: 0.5rem;">
+            <input type="date" name="valid_until" required style="padding: 0.5rem;">
+            <select name="applicable_to" style="padding: 0.5rem;">
+                <option value="All users">All users</option>
+                <option value="Members only">Members only</option>
+            </select>
+        </div>
+        <button type="submit" class="btn" style="margin-top: 1rem;">Publish Offer</button>
+    </form>
+</div>
+<div class="card">
+    <h3>Active Offers</h3>
+    <% offers.forEach(offer => { %>
+        <div style="border-left: 4px solid green; padding: 0.5rem; margin: 0.5rem 0;">
+            <strong><%= offer.offer_title %></strong> - <%= offer.status %>
+        </div>
+    <% }); %>
+</div>
+<% include ../partials/footer %>
